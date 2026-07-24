@@ -98,7 +98,9 @@ export default function HistoryPage() {
   // because the user hadn't scrolled would be worse than useless.
   function downloadActivity(kind: "csv" | "json") {
     const content =
-      kind === "csv" ? formatActivityCsv(filtered) : formatActivityJson(filtered);
+      kind === "csv"
+        ? formatActivityCsv(filtered)
+        : formatActivityJson(filtered);
     const mime = kind === "csv" ? "text/csv" : "application/json";
     const blob = new Blob([content], { type: mime });
     const url = URL.createObjectURL(blob);
@@ -212,6 +214,7 @@ export default function HistoryPage() {
           <div className="flex gap-3">
             <button
               onClick={() => downloadActivity("csv")}
+              aria-label="Export activity history as CSV"
               className="flex items-center gap-1.5 text-xs font-medium text-brand-400 transition-colors hover:text-brand-300"
             >
               <DownloadIcon />
@@ -219,6 +222,7 @@ export default function HistoryPage() {
             </button>
             <button
               onClick={() => downloadActivity("json")}
+              aria-label="Export activity history as JSON"
               className="flex items-center gap-1.5 text-xs font-medium text-brand-400 transition-colors hover:text-brand-300"
             >
               <DownloadIcon />
@@ -240,7 +244,11 @@ export default function HistoryPage() {
             {activity.length === 0 && (
               <Link
                 href="/deposit"
-                className={buttonVariants({ variant: "outline", size: "sm", className: "mt-4" })}
+                className={buttonVariants({
+                  variant: "outline",
+                  size: "sm",
+                  className: "mt-4",
+                })}
               >
                 Make your first deposit
               </Link>
